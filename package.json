@@ -2,8 +2,15 @@
 	"name": "codeshare",
 	"displayName": "CodeShare",
 	"description": "Share your code with others",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "Procker",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ProckerIO/CodeShare-VSCode-Extension.git"
+	},
+	"bugs": {
+    "url": "https://github.com/ProckerIO/CodeShare-VSCode-Extension/issues"
+  },
 	"author": {
 		"name": "Niklas Stegmann"
 	},
