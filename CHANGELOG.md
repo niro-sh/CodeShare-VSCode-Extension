@@ -11,3 +11,9 @@ All notable changes to the "codeshare" extension will be documented in this file
 ### Added
 
 - Add GitHub-Repository
+
+## [1.0.2] - 2020-11-28
+
+### Added
+
+- Add Share-History (last 100 shares will be displayed)

@@ -14,10 +14,6 @@ Share your code by selecting an area and select via context menu the entry "Shar
 
 ## Release Notes
 
-### [1.0.1] - 2020-11-23
+### [1.0.2] - 2020-11-28
 
-- Added GitHub-Repository
-
-### [1.0.0] - 2020-11-23
-
-- Initial release of CodeShare
+- Added Share-History (last 100 shares will be displayed)

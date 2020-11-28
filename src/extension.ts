@@ -1,10 +1,26 @@
 import * as vscode from 'vscode';
 import { CodeShareAPI } from './CodeShareAPI';
+import { CodeShareProvider } from './CodeShareProvider';
 import { Constants } from './Constants';
 import { UIUtils } from './UIUtils';
+import * as fs from 'fs';
+
+export let extensionFolder: string;
+export const codeShareProvider = new CodeShareProvider();
 
 // this method is called when your extension is activated
 export function activate(context: vscode.ExtensionContext) {
+
+	// create extension folder
+	extensionFolder = context.globalStorageUri.path.substring(1, context.globalStorageUri.path.length);
+	if(!fs.existsSync(extensionFolder)) {
+    fs.mkdirSync(extensionFolder);
+	}
+
+	//#region register tree data provider
+	vscode.window.registerTreeDataProvider('codeshareShares', codeShareProvider);
+	//#endregion
+
 
 	//#region website command
 	const websiteCommand = vscode.commands.registerCommand('codeshare.website', async () => {
@@ -63,7 +79,27 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(shareWithPasswordCommand);
 	//#endregion
 
+
+	//#region view: open share in browser
+	const openShareInBrowserCommand = vscode.commands.registerCommand('codeshare.view.openShare', async (contextItem) => {
+		if(contextItem == null) return;
+		vscode.env.openExternal(vscode.Uri.parse(CodeShareAPI.getShareURL(contextItem.shareID)));
+	});
+
+	context.subscriptions.push(openShareInBrowserCommand);
+	//#endregion
+
+
+	//#region view: copy share
+	const copyShareCommand = vscode.commands.registerCommand('codeshare.view.copyShare', async (contextItem) => {
+		if(contextItem == null) return;
+		vscode.env.clipboard.writeText(CodeShareAPI.getShareURL(contextItem.shareID));
+	});
+
+	context.subscriptions.push(copyShareCommand);
+	//#endregion
+
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

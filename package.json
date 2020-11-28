@@ -2,22 +2,22 @@
 	"name": "codeshare",
 	"displayName": "CodeShare",
 	"description": "Share your code with others",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"publisher": "Procker",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ProckerIO/CodeShare-VSCode-Extension.git"
 	},
 	"bugs": {
-    "url": "https://github.com/ProckerIO/CodeShare-VSCode-Extension/issues"
-  },
+		"url": "https://github.com/ProckerIO/CodeShare-VSCode-Extension/issues"
+	},
 	"author": {
 		"name": "Niklas Stegmann"
 	},
-	"icon": "img/logo.png",
-  "galleryBanner": {
-    "color": "#333842",
-    "theme": "dark"
+	"icon": "media/logo.png",
+	"galleryBanner": {
+		"color": "#333842",
+		"theme": "dark"
 	},
 	"homepage": "https://code.prkr.li/",
 	"engines": {
@@ -36,7 +36,8 @@
 	"activationEvents": [
 		"onCommand:codeshare.website",
 		"onCommand:codeshare.share",
-		"onCommand:codeshare.shareWithPassword"
+		"onCommand:codeshare.shareWithPassword",
+		"onView:codeshareShares"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -52,6 +53,14 @@
 			{
 				"command": "codeshare.shareWithPassword",
 				"title": "📑 Share Code with Password"
+			},
+			{
+				"command": "codeshare.view.copyShare",
+				"title": "Copy Share"
+			},
+			{
+				"command": "codeshare.view.openShare",
+				"title": "Open Share in Browser"
 			}
 		],
 		"menus": {
@@ -63,6 +72,33 @@
 				{
 					"command": "codeshare.shareWithPassword",
 					"group": "codeshareGroup@2"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "codeshare.view.copyShare",
+					"when": "view == codeshareShares"
+				},
+				{
+					"command": "codeshare.view.openShare",
+					"when": "view == codeshareShares"
+				}
+			]
+		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "codeshareActivity",
+					"title": "CodeShare",
+					"icon": "media/logo.svg"
+				}
+			]
+		},
+		"views": {
+			"codeshareActivity": [
+				{
+					"id": "codeshareShares",
+					"name": "Shares"
 				}
 			]
 		}
@@ -95,6 +131,7 @@
 		"webpack-cli": "^3.3.12"
 	},
 	"dependencies": {
-		"got": "^11.8.0"
+		"got": "^11.8.0",
+		"moment": "^2.29.1"
 	}
 }
