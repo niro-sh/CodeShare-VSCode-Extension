@@ -11,7 +11,8 @@ export class CodeShareAPI {
   public static async createShare(text: string, language: string, password?: string, showError?: boolean): Promise<Response<string> | undefined> {
     let jsonRequest: any = {
       share: text,
-      language: language
+      language: language,
+      source: "vscode"
     };
 
     if(password != undefined) {

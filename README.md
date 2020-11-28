@@ -1,10 +1,16 @@
 # CodeShare
 
-Share your code with others
+Exchange and help during coding has become even more important than before in times of home office during COVID-19. Stay connected and upload your code snippets to "https://code.prkr.li" and share it with your friends or colleagues.
 
 ## Features
 
 Share your code by selecting an area and select via context menu the entry "Share Code". Or if you like to secure your share with a password choose "Share Code with Password"
+
+- Share selected code directly from VS Code
+- Protected your shares with a password
+- See additional details like views and more
+- No registration - No annoying spam emails or newsletter
+- Duplicate and edit a share with clicking one button
 
 ![Share Code 1](https://code.prkr.li/img/vscode_extension_1.png)
 
@@ -14,6 +20,6 @@ Share your code by selecting an area and select via context menu the entry "Shar
 
 ## Release Notes
 
-### [1.0.2] - 2020-11-28
+### [1.0.3] - 2020-11-28
 
-- Added Share-History (last 100 shares will be displayed)
+- Added share source for statistics
