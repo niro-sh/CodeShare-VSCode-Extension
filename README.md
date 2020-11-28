@@ -20,6 +20,6 @@ Share your code by selecting an area and select via context menu the entry "Shar
 
 ## Release Notes
 
-### [1.0.3] - 2020-11-28
+### [1.0.4] - 2020-11-28
 
-- Added share source for statistics
+- Fixed spelling misstakes

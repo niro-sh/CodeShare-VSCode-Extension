@@ -23,3 +23,9 @@ All notable changes to the "codeshare" extension will be documented in this file
 ### Added
 
 - Added share source for statistics
+
+## [1.0.4] - 2020-11-28
+
+### Fixed
+
+- Fixed spelling misstakes
