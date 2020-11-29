@@ -2,7 +2,7 @@
 	"name": "codeshare",
 	"displayName": "CodeShare",
 	"description": "Share your code with others",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"publisher": "Procker",
 	"repository": {
 		"type": "git",
@@ -56,11 +56,15 @@
 			},
 			{
 				"command": "codeshare.view.copyShare",
-				"title": "Copy Share"
+				"title": "📋 Copy Share"
 			},
 			{
 				"command": "codeshare.view.openShare",
-				"title": "Open Share in Browser"
+				"title": "🌐 Open Share in Browser"
+			},
+			{
+				"command": "codeshare.view.removeShare",
+				"title": "❌ Remove Share"
 			}
 		],
 		"menus": {
@@ -77,10 +81,17 @@
 			"view/item/context": [
 				{
 					"command": "codeshare.view.copyShare",
+					"group": "codeshareViewGroup@1",
 					"when": "view == codeshareShares"
 				},
 				{
 					"command": "codeshare.view.openShare",
+					"group": "codeshareViewGroup@2",
+					"when": "view == codeshareShares"
+				},
+				{
+					"command": "codeshare.view.removeShare",
+					"group": "codeshareViewGroup@3",
 					"when": "view == codeshareShares"
 				}
 			]

@@ -94,4 +94,21 @@ export class CodeShareAPI {
     return JSON.parse(fs.readFileSync(shareHistoryPath).toString());
   }
 
+  public static removeShareHistoryItem(shareID: string) {
+    const shareHistoryPath = extensionFolder + "/shareHistory.json";
+    const newShareHistory = new Array<any>();
+
+    // get share history
+    const shareHistory = this.getShareHistory();
+
+    for(let i = 0; i < shareHistory.length; i++) {
+      const item = shareHistory[i];
+      if(item.shareID == shareID) continue;
+      newShareHistory.push(item);
+    }
+
+    // save data in file
+    fs.writeFileSync(shareHistoryPath, JSON.stringify(newShareHistory));
+  }
+
 }

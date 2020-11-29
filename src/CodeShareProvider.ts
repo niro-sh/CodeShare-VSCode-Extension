@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 import * as moment from 'moment';
-import * as path from 'path';
 import { CodeShareAPI } from './CodeShareAPI';
 
 export class CodeShareProvider implements vscode.TreeDataProvider<ShareItem> {

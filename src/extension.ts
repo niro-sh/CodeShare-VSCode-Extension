@@ -99,6 +99,17 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(copyShareCommand);
 	//#endregion
 
+
+	//#region view: remove share
+	const removeShareCommand = vscode.commands.registerCommand('codeshare.view.removeShare', async (contextItem) => {
+		if(contextItem == null) return;
+		CodeShareAPI.removeShareHistoryItem(contextItem.shareID);
+		codeShareProvider.refresh();
+	});
+
+	context.subscriptions.push(removeShareCommand);
+	//#endregion
+
 }
 
 // this method is called when your extension is deactivated
