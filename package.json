@@ -2,7 +2,7 @@
 	"name": "codeshare",
 	"displayName": "CodeShare",
 	"description": "Share your code with others",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"publisher": "Procker",
 	"repository": {
 		"type": "git",

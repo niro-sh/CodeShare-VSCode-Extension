@@ -40,13 +40,22 @@ export function activate(context: vscode.ExtensionContext) {
 		const selection = currentEditor.selection;
 		const selectedText = currentEditor.document.getText(selection);
 
-		const response = await CodeShareAPI.createShare(selectedText, currentLanguage, undefined, true);
-		if(response == undefined) return;
+		const shareID = await vscode.window.withProgress({
+			location: vscode.ProgressLocation.Notification,
+			title: "Generating code share...",
+		}, async (progress, token) => {
+			const response = await CodeShareAPI.createShare(selectedText, currentLanguage, undefined, true);
+			if(response == undefined) return;
+	
+			const jsonResponse = JSON.parse(response.body);
+	
+			const shareID = jsonResponse.result.id;
+			return new Promise(resolve => {
+				resolve(shareID);
+			});
+		});
 
-		const jsonResponse = JSON.parse(response.body);
-
-		const shareID = jsonResponse.result.id;
-		UIUtils.showCodeShareMessage(shareID);
+		UIUtils.showCodeShareMessage(shareID as string);
 	});
 
 	context.subscriptions.push(shareCommand);
@@ -67,13 +76,22 @@ export function activate(context: vscode.ExtensionContext) {
 		const selection = currentEditor.selection;
 		const selectedText = currentEditor.document.getText(selection);
 
-		const response = await CodeShareAPI.createShare(selectedText, currentLanguage, password, true);
-		if(response == undefined) return;
+		const shareID = await vscode.window.withProgress({
+			location: vscode.ProgressLocation.Notification,
+			title: "Generating code share...",
+		}, async (progress, token) => {
+			const response = await CodeShareAPI.createShare(selectedText, currentLanguage, password, true);
+			if(response == undefined) return;
+	
+			const jsonResponse = JSON.parse(response.body);
+	
+			const shareID = jsonResponse.result.id;
+			return new Promise(resolve => {
+				resolve(shareID);
+			});
+		});
 
-		const jsonResponse = JSON.parse(response.body);
-
-		const shareID = jsonResponse.result.id;
-		UIUtils.showCodeShareMessage(shareID);
+		UIUtils.showCodeShareMessage(shareID as string);
 	});
 
 	context.subscriptions.push(shareWithPasswordCommand);

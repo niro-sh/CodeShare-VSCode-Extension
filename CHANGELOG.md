@@ -36,3 +36,9 @@ All notable changes to the "codeshare" extension will be documented in this file
 
 - Added "Remove Share"-Function in Share-History
 - Added Icons in Context-Menu
+
+## [1.0.6] - 2020-12-23
+
+### Added
+
+- Added loading indicator while creating a code share
