@@ -38,7 +38,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 		const currentLanguage = currentEditor.document.languageId;
 		const selection = currentEditor.selection;
-		const selectedText = currentEditor.document.getText(selection);
+		let selectedText = currentEditor.document.getText(selection);
+
+		// get whole text if nothing selected
+		if(selectedText == '') {
+			selectedText = currentEditor.document.getText();
+		}
 
 		const shareID = await vscode.window.withProgress({
 			location: vscode.ProgressLocation.Notification,
@@ -72,9 +77,17 @@ export function activate(context: vscode.ExtensionContext) {
 			placeHolder: 'enter password for code share'
 		});
 
+		// check if password is filled
+		if(password == undefined || password == '') return;
+
 		const currentLanguage = currentEditor.document.languageId;
 		const selection = currentEditor.selection;
-		const selectedText = currentEditor.document.getText(selection);
+		let selectedText = currentEditor.document.getText(selection);
+
+		// get whole text if nothing selected
+		if(selectedText == '') {
+			selectedText = currentEditor.document.getText();
+		}
 
 		const shareID = await vscode.window.withProgress({
 			location: vscode.ProgressLocation.Notification,

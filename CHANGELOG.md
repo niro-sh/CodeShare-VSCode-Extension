@@ -42,3 +42,9 @@ All notable changes to the "codeshare" extension will be documented in this file
 ### Added
 
 - Added loading indicator while creating a code share
+
+## [1.0.7] - 2021-02-28
+
+### Added
+
+- Added possibility to share whole file (if nothing is selected)
