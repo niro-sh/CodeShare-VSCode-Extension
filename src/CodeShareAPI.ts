@@ -22,9 +22,10 @@ export class CodeShareAPI {
     let response;
 		try {
 			response = await got.post(`${Constants.API_URL}/share/create`, {
-				json: jsonRequest
+				json: jsonRequest,
+        rejectUnauthorized: false
 			});
-		} catch(error) {
+		} catch(error: any) {
 			response = error.response;
     }
     

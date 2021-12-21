@@ -48,3 +48,9 @@ All notable changes to the "codeshare" extension will be documented in this file
 ### Added
 
 - Added possibility to share whole file (if nothing is selected)
+
+## [1.0.8] - 2021-12-21
+
+### Fixed
+
+- Fixed error while creating share

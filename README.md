@@ -20,6 +20,6 @@ Share your code by selecting an area and select via context menu the entry "Shar
 
 ## Release Notes
 
-### [1.0.7] - 2021-02-28
+### [1.0.8] - 2021-12-21
 
-- Added possibility to share whole file (if nothing is selected)
+- Fixed error while creating share
