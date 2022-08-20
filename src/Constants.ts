@@ -1,6 +1,6 @@
 export class Constants {
 
-  public static API_URL = "https://api.code.prkr.li";
-  public static APP_URL = "https://code.prkr.li";
+  public static apiURL = "https://api.code.niro.sh";
+  public static appURL = "https://code.niro.sh";
 
 }

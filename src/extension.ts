@@ -24,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	//#region website command
 	const websiteCommand = vscode.commands.registerCommand('codeshare.website', async () => {
-		vscode.env.openExternal(vscode.Uri.parse(Constants.APP_URL));
+		vscode.env.openExternal(vscode.Uri.parse(Constants.appURL));
 	});
 
 	context.subscriptions.push(websiteCommand);
@@ -34,14 +34,16 @@ export function activate(context: vscode.ExtensionContext) {
 	//#region share code command
 	const shareCommand = vscode.commands.registerCommand('codeshare.share', async () => {
 		const currentEditor = vscode.window.activeTextEditor;
-		if(!currentEditor) return;
+		if(!currentEditor) {
+			return;
+		}
 
 		const currentLanguage = currentEditor.document.languageId;
 		const selection = currentEditor.selection;
 		let selectedText = currentEditor.document.getText(selection);
 
 		// get whole text if nothing selected
-		if(selectedText == '') {
+		if(selectedText === '') {
 			selectedText = currentEditor.document.getText();
 		}
 
@@ -50,11 +52,13 @@ export function activate(context: vscode.ExtensionContext) {
 			title: "Generating code share...",
 		}, async (progress, token) => {
 			const response = await CodeShareAPI.createShare(selectedText, currentLanguage, undefined, true);
-			if(response == undefined) return;
+			if(response === undefined) {
+				return;
+			}
 	
 			const jsonResponse = JSON.parse(response.body);
 	
-			const shareID = jsonResponse.result.id;
+			const shareID = jsonResponse.data.id;
 			return new Promise(resolve => {
 				resolve(shareID);
 			});
@@ -70,7 +74,9 @@ export function activate(context: vscode.ExtensionContext) {
 	//#region share code with password command
 	const shareWithPasswordCommand = vscode.commands.registerCommand('codeshare.shareWithPassword', async () => {
 		const currentEditor = vscode.window.activeTextEditor;
-		if(!currentEditor) return;
+		if(!currentEditor) {
+			return;
+		}
 
 		const password = await vscode.window.showInputBox({ 
 			password: true,
@@ -78,14 +84,16 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 
 		// check if password is filled
-		if(password == undefined || password == '') return;
+		if(password === undefined || password === '') {
+			return;
+		}
 
 		const currentLanguage = currentEditor.document.languageId;
 		const selection = currentEditor.selection;
 		let selectedText = currentEditor.document.getText(selection);
 
 		// get whole text if nothing selected
-		if(selectedText == '') {
+		if(selectedText === '') {
 			selectedText = currentEditor.document.getText();
 		}
 
@@ -94,11 +102,13 @@ export function activate(context: vscode.ExtensionContext) {
 			title: "Generating code share...",
 		}, async (progress, token) => {
 			const response = await CodeShareAPI.createShare(selectedText, currentLanguage, password, true);
-			if(response == undefined) return;
+			if(response === undefined) {
+				return;
+			}
 	
 			const jsonResponse = JSON.parse(response.body);
 	
-			const shareID = jsonResponse.result.id;
+			const shareID = jsonResponse.data.id;
 			return new Promise(resolve => {
 				resolve(shareID);
 			});
@@ -113,7 +123,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 	//#region view: open share in browser
 	const openShareInBrowserCommand = vscode.commands.registerCommand('codeshare.view.openShare', async (contextItem) => {
-		if(contextItem == null) return;
+		if(contextItem === null) {
+			return;
+		}
 		vscode.env.openExternal(vscode.Uri.parse(CodeShareAPI.getShareURL(contextItem.shareID)));
 	});
 
@@ -123,7 +135,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 	//#region view: copy share
 	const copyShareCommand = vscode.commands.registerCommand('codeshare.view.copyShare', async (contextItem) => {
-		if(contextItem == null) return;
+		if(contextItem === null) {
+			return;
+		}
 		vscode.env.clipboard.writeText(CodeShareAPI.getShareURL(contextItem.shareID));
 	});
 
@@ -133,7 +147,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 	//#region view: remove share
 	const removeShareCommand = vscode.commands.registerCommand('codeshare.view.removeShare', async (contextItem) => {
-		if(contextItem == null) return;
+		if(contextItem === null) {
+			return;
+		}
 		CodeShareAPI.removeShareHistoryItem(contextItem.shareID);
 		codeShareProvider.refresh();
 	});

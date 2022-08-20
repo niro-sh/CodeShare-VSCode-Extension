@@ -15,13 +15,13 @@ export class CodeShareAPI {
       source: "vscode"
     };
 
-    if(password != undefined) {
+    if(password !== undefined) {
       jsonRequest["password"] = password;
     }
 
     let response;
 		try {
-			response = await got.post(`${Constants.API_URL}/share/create`, {
+			response = await got.post(`${Constants.apiURL}/share/create`, {
 				json: jsonRequest,
         rejectUnauthorized: false
 			});
@@ -30,11 +30,11 @@ export class CodeShareAPI {
     }
     
     if(showError) {
-      if(response.statusCode != 201) {
+      if(response.statusCode !== 200) {
         const jsonResponse = JSON.parse(response.body);
   
         const result = await vscode.window.showErrorMessage("Error while creating code share", "More Details");
-        if(result?.toLowerCase() == "more details") {
+        if(result?.toLowerCase() === "more details") {
           const displayJson = {
             statusCode: response.statusCode,
             response: jsonResponse
@@ -47,18 +47,20 @@ export class CodeShareAPI {
       }
     }
 
-    if(response.statusCode == 201) {
+    if(response.statusCode === 200) {
       const shareHistoryPath = extensionFolder + "/shareHistory.json";
 
       // read share history
       const shareHistory = this.getShareHistory();
 
       // check if history has reached 100 -> remove first item
-      if(shareHistory.length >= 100) shareHistory.shift;
+      if(shareHistory.length >= 100) {
+        shareHistory.shift;
+      }
 
       // get share id
       const jsonResponse = JSON.parse(response.body);
-      const shareID = jsonResponse.result.id;
+      const shareID = jsonResponse.data.id;
 
       const newShare = {
         shareID: shareID, 
@@ -66,7 +68,9 @@ export class CodeShareAPI {
         type: "normal"
       };
       
-      if(password != undefined) newShare["type"] = "password";
+      if(password !== undefined) {
+        newShare["type"] = "password";
+      }
 
       // save share
       shareHistory.push(newShare);
@@ -82,14 +86,16 @@ export class CodeShareAPI {
   }
 
   public static getShareURL(shareID: string): string {
-    return `${Constants.APP_URL}/${shareID}`;
+    return `${Constants.appURL}/${shareID}`;
   }
 
   public static getShareHistory(): Array<any> {
     const shareHistoryPath = extensionFolder + "/shareHistory.json";
 
     // check if file exists -> create file
-    if(!fs.existsSync(shareHistoryPath)) fs.writeFileSync(shareHistoryPath, JSON.stringify([]));
+    if(!fs.existsSync(shareHistoryPath)) {
+      fs.writeFileSync(shareHistoryPath, JSON.stringify([]));
+    }
 
     // read share history and return
     return JSON.parse(fs.readFileSync(shareHistoryPath).toString());
@@ -104,7 +110,9 @@ export class CodeShareAPI {
 
     for(let i = 0; i < shareHistory.length; i++) {
       const item = shareHistory[i];
-      if(item.shareID == shareID) continue;
+      if(item.shareID === shareID) {
+        continue;
+      }
       newShareHistory.push(item);
     }
 

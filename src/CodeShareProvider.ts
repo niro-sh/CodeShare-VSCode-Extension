@@ -25,9 +25,9 @@ export class CodeShareProvider implements vscode.TreeDataProvider<ShareItem> {
       const jsonShare = shareHistory[i];
 
       let icon: string = "";
-      if(jsonShare.type.toLowerCase() == "normal") {
+      if(jsonShare.type.toLowerCase() === "normal") {
         icon = "📄";
-      } else if(jsonShare.type.toLowerCase() == "password") {
+      } else if(jsonShare.type.toLowerCase() === "password") {
         icon = "📑";
       }
 
